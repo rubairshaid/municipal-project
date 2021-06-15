@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget{
                   title: Text("الرئيسية", textDirection: TextDirection.rtl,),
                   centerTitle: true,
                 ),
-                drawer: Drawer(
+                endDrawer: Drawer(
                   child : Column(
                     children: [
                       Expanded(
@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget{
                 body:Container(
                   margin: EdgeInsets.all(10),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                             Container(
                                 padding: EdgeInsets.fromLTRB(10,0,10,5),
@@ -105,36 +106,105 @@ class MyApp extends StatelessWidget{
                                             Container(
                                               color:Colors.blue[400],
                                               padding : EdgeInsets.fromLTRB(0, 0, 20, 20),
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                   mainAxisAlignment: MainAxisAlignment.end,
-                                                    children: [
-                                                      Text("150"),
-                                                      Text(" :عدد ساعات التدريب الكلي" , style: TextStyle(fontSize: 20 , color: Colors.white)),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.end,
-                                                    children: [
-                                                      Text("50"),
-                                                      Text(" :عدد الساعات المقطوعة"),
-                                                    ],
-                                                  ),
-                                                  
-                                                ],
-                                              ),
-
                                             ),
                                         ],
                                     )
                                 )
                             ),
+                          SizedBox(height: 30),
+                          Column(
+                            children: [
+                              Text("عدد الساعات" ,style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20),),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(10,10,10,10),
+                                margin: EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(30.0),
+                                            bottomRight: Radius.circular(30.0),
+                                          ),
+                                        ),
+                                        padding: EdgeInsets.only(top: 15 , bottom: 15),
+                                        child: Column(
+                                          children: [
+                                            Text("المقطوعة", style: TextStyle(fontWeight: FontWeight.bold , fontSize: 15),),
+                                            Text("40"),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(30.0),
+                                            bottomRight: Radius.circular(30.0),
+                                          ),
+                                        ),
+                                        padding: EdgeInsets.only(top: 15 , bottom: 15),
+                                        child: Column(
+                                          children: [
+                                            Text("المتبقية" , style: TextStyle(fontWeight: FontWeight.bold , fontSize: 15),),
+                                            Text("110"),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.blue[300],
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(30.0),
+                                            bottomRight: Radius.circular(30.0),
+                                          ),
+                                        ),
+                                        padding: EdgeInsets.only(top: 15 , bottom: 15),
+                                        child: Column(
+                                          children: [
+                                            Text("الكلية" , style: TextStyle(fontWeight: FontWeight.bold , fontSize: 15),),
+                                            Text("150"),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ), 
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 30),
                           CheckInOUT(),
                         ],
                     )
+                ),
+            floatingActionButton: FloatingActionButton.extended(
+              backgroundColor: Colors.grey[200],
+              foregroundColor: Colors.black,
+              icon: Icon(Icons.add),
+              label: Text("إضافة المهمة اليومية"),
+              onPressed: (){},
+            ),
+            bottomNavigationBar: BottomAppBar(
+              child: Container (
+                height: 70,
+                 decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(width: 3, color: Colors.blueGrey),
+                    ),
+                    color: Colors.blue,
+                  ),
                 )
-            )
+            ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          )
         );
     }
 }
@@ -157,7 +227,7 @@ class _CheckInOUTState extends State<CheckInOUT> {
     return Container(
        child: TextButton.icon(
          icon: getIcon(), 
-         label: Text(checkedIn? "تسجيل الخروج" : "تسجيل الدخول"),
+         label: Text(checkedIn? "تسجيل الخروج" : "تسجيل الدخول" , style: TextStyle(fontSize: 20 , fontWeight:FontWeight.bold,),),
          onPressed:(){
            setState(() {
              checkedIn= !checkedIn;
