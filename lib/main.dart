@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget{
         return MaterialApp(
             home: Scaffold(
                 appBar: AppBar(
-                  title: Text("لم يتم التحديد", textDirection: TextDirection.rtl,),
+                  title: Text("الرئيسية", textDirection: TextDirection.rtl,),
+                  centerTitle: true,
                 ),
                 drawer: Drawer(
                   child : Column(
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget{
                   ), 
                 ),
                 body:Container(
+                  margin: EdgeInsets.all(10),
                     child: Column(
                         children: [
                             Container(
@@ -67,10 +69,10 @@ class MyApp extends StatelessWidget{
                                             offset: Offset(0, 3),
                                         ),
                                     ],
-                                ),
+                                  ),
                                 child: Card(
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-                                    color: Colors.blue[500],
+                                    color: Colors.blue[400],
                                     child: Column(
                                         children: [
                                             Row(
@@ -82,70 +84,53 @@ class MyApp extends StatelessWidget{
                                                                 backgroundImage: AssetImage('assets/profile.jpg'),
                                                             ),
                                                     ),
-                                                    Container(
-                                                        padding: EdgeInsets.fromLTRB(10,0,0,0),
+                                                    Expanded(
+                                                      child: Container(
+                                                        padding: EdgeInsets.fromLTRB(10,0,20,0),
                                                         child:Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children:[
                                                                 Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.end,
                                                                     children: [
-                                                                        Text("Ruba Irshaid" ,style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20, color: Colors.white )),
-                                                                        Container(
-                                                                            padding: EdgeInsets.fromLTRB(20 , 0 , 0 , 0),
-                                                                            child:Icon(Icons.border_color , color:Colors.white , size: 15),
-
-                                                                        )
+                                                                        Text("ربى ارشيد" ,style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20, color: Colors.white )),
                                                                     ],
                                                                 ),
-                                                                Text("Flutter Dev" , style:TextStyle(color: Colors.white)),
                                                             ],
                                                         ),
+                                                     )
                                                     )
-                                                   
                                                 ],
-
                                             ),
                                             Container(
-                                                padding: EdgeInsets.fromLTRB(0,0,0,15),
-                                                child:Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                    children:[
-                                                        PersonalInfo(text:"Collect" , num: 990 ),
-                                                        PersonalInfo(text:"Attention" , num: 10 ),
-                                                        PersonalInfo(text:"Track" , num: 170 ),
-                                                        PersonalInfo(text:"Coupons" , num: 50 ),
-                                                        
+                                              color:Colors.blue[400],
+                                              padding : EdgeInsets.fromLTRB(0, 0, 20, 20),
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                   mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      Text("150"),
+                                                      Text(" :عدد ساعات التدريب الكلي" , style: TextStyle(fontSize: 20 , color: Colors.white)),
                                                     ],
-                                                )
-                                            )
-                                        ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      Text("50"),
+                                                      Text(" :عدد الساعات المقطوعة"),
+                                                    ],
+                                                  ),
+                                                  
+                                                ],
+                                              ),
 
+                                            ),
+                                        ],
                                     )
                                 )
                             ),
-                            Container(
-                                padding: EdgeInsets.all(10),
-                                margin: EdgeInsetsDirectional.fromSTEB(0 , 20 , 0 ,20),
-                                child:Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                        IconsRow(iconName: "account_balance_wallet" , iconText: "Wallet"),
-                                        IconsRow(iconName: "directions_bus" , iconText: "Delivery"),
-                                        IconsRow(iconName: "message" , iconText: "Massege"),
-                                        IconsRow(iconName: "computer" , iconText: "Service"),
-                                    ],
-                                )
-                            ),   
-                            Expanded(
-                                child: ListView(
-                                    children: [
-                                        ListItems(text1:"Address" , text2:"Ensure your harvesting address" , iconPara:"location_on"),
-                                        ListItems(text1:"Privacy" , text2:"System permision change" , iconPara:"lock"),
-                                        ListItems(text1:"General" , text2:"Basic functional settings" , iconPara:"settings"),
-                                        ListItems(text1:"Notefications" , text2:"take over the news on time" , iconPara:"notifications"),
-                                    ],
-                                ),
-                            ),
+                          CheckInOUT(),
                         ],
                     )
                 )
@@ -154,110 +139,31 @@ class MyApp extends StatelessWidget{
     }
 }
 
-class PersonalInfo extends StatelessWidget{
-    final String text ;
-    final double num;
-    PersonalInfo({this.text , this.num});
-
-    @override
-    Widget build (BuildContext context)
-    {
-        return Column(
-                    children:[
-                            Text(this.num.toString(),style: TextStyle(color: Colors.white ,fontSize: 18, fontWeight:FontWeight.bold,)),
-                            Text(this.text , style: TextStyle(color: Colors.white)),
-                        ],
-                    );
-    }
+class CheckInOUT extends StatefulWidget {
+  @override
+  _CheckInOUTState createState() => _CheckInOUTState();
 }
- class IconsRow extends StatelessWidget{
-     final String iconName;
-     final String iconText;
-     final myIcons = <String, IconData> {
-        'account_balance_wallet': Icons.account_balance_wallet,
-        'directions_bus': Icons.directions_bus,
-        'message': Icons.message,
-        'computer': Icons.computer,
-        };
-     IconsRow ({this.iconName , this.iconText});
-     @override
-     Widget build (BuildContext context)
-     {
-         return Column(
-                    children: [
-                        CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.grey.withOpacity(0.2),
-                            child: Icon(myIcons[this.iconName], color: Colors.black),
-                        ),
-                        Container(
-                            padding: EdgeInsets.fromLTRB(0 , 13 , 0, 0),
-                            child: Text(this.iconText),
-                        ),
-                    ],
-                );
-     }
- }
 
-class ListItems extends StatelessWidget{
-    final String text1;
-    final String text2;
-    final String iconPara;
-    final myIcons2 = <String, IconData> {
-        'location_on': Icons.location_on,
-        'lock': Icons.lock,
-        'settings': Icons.settings,
-        'notifications': Icons.notifications,
-        };
-
-    ListItems({this.text1 , this.text2 , this.iconPara});
-    @override
-    Widget build (BuildContext context)
-    {
-        return Container(
-                    margin: EdgeInsetsDirectional.fromSTEB(0 , 10 , 0 ,5),
-                    padding: EdgeInsets.fromLTRB(10 ,0, 10,0),
-                    decoration: BoxDecoration(
-                        boxShadow:[
-                            BoxShadow(
-                                color: Colors.blue.withOpacity(0.1),
-                                spreadRadius: 3,
-                                blurRadius: 80,
-                                offset: Offset(0, 10),
-                            ),
-                        ],
-                    ),
-                    child: Card(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-                        child:Container(
-                            padding: EdgeInsets.all(20),
-                            child: Row(
-                                children: [
-                                    CircleAvatar(
-                                        radius: 20,
-                                        backgroundColor: Colors.purple.withOpacity(0.8),
-                                        child: Icon(myIcons2[this.iconPara], color: Colors.white),
-                                    ),
-                                    Container(
-                                        padding: EdgeInsets.fromLTRB(15,0,0,0),
-                                        child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                                Text(this.text1 , style: TextStyle(fontWeight: FontWeight.bold),),
-                                                Text(this.text2 ,style: TextStyle(color: Colors.grey),),
-                                            ],
-                                        ),
-                                    ),
-                                    Expanded(
-                                        child: Container(
-                                            alignment: Alignment.centerRight,
-                                            child:  Icon(Icons.arrow_forward_ios, color:Colors.grey.withOpacity(0.8),),
-                                        ),
-                                    ),
-                                ],
-                            ),
-                        ),
-                    ),
-                );
-    }
+class _CheckInOUTState extends State<CheckInOUT> {
+  bool checkedIn= true ; 
+  
+  Widget getIcon(){
+    if (checkedIn)
+      return  Icon(Icons.logout , size :40 , color: Colors.red);
+    return Icon(Icons.login , size :40 , color: Colors.green);
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+       child: TextButton.icon(
+         icon: getIcon(), 
+         label: Text(checkedIn? "تسجيل الخروج" : "تسجيل الدخول"),
+         onPressed:(){
+           setState(() {
+             checkedIn= !checkedIn;
+           });
+         }
+         )
+    );
+  }
 }
