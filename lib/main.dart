@@ -125,71 +125,7 @@ class MyApp extends StatelessWidget{
                                       )
                                   )
                              ),
-                            //SizedBox(height: 30),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10,10,10,10),
-                              margin: EdgeInsets.all(10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.green[300],
-                                        borderRadius: BorderRadius.only(
-                                          //topLeft: Radius.circular(30.0),
-                                          //bottomRight: Radius.circular(30.0),
-                                        ),
-                                      ),
-                                      padding: EdgeInsets.only(top: 15 , bottom: 15),
-                                      child: Column(
-                                        children: [
-                                          Text("المقطوعة", style: TextStyle(fontWeight: FontWeight.bold , fontSize: 18 , color: Colors.white),),
-                                          Text("40" , style : TextStyle(fontSize: 18 , color: Colors.white)),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.red[300],
-                                        borderRadius: BorderRadius.only(
-                                          //topLeft: Radius.circular(30.0),
-                                          //bottomRight: Radius.circular(30.0),
-                                        ),
-                                      ),
-                                      padding: EdgeInsets.only(top: 15 , bottom: 15),
-                                      child: Column(
-                                        children: [
-                                          Text("المتبقية" , style: TextStyle(fontWeight: FontWeight.bold , fontSize: 18 , color: Colors.white),),
-                                          Text("110"  , style : TextStyle(fontSize: 18 , color: Colors.white)),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[300],
-                                        borderRadius: BorderRadius.only(
-                                          //topLeft: Radius.circular(30.0),
-                                          //bottomRight: Radius.circular(30.0),
-                                        ),
-                                      ),
-                                      padding: EdgeInsets.only(top: 15 , bottom: 15),
-                                      child: Column(
-                                        children: [
-                                          Text("الكلية" , style: TextStyle(fontWeight: FontWeight.bold , fontSize: 18 , color: Colors.white),),
-                                          Text("150" , style : TextStyle(fontSize: 18 , color: Colors.white)),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ), 
-                            ),
-                            SizedBox(height: 30),
+                            SizedBox(height: 20),
                             Container(
                                 padding: EdgeInsets.fromLTRB(10,10,10,10),
                                 margin: EdgeInsets.all(10),
@@ -197,15 +133,40 @@ class MyApp extends StatelessWidget{
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.green,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(30.0),
-                                            bottomRight: Radius.circular(30.0),
-                                          ),
-                                        ),
+                                      //   decoration: BoxDecoration(
+                                      //   boxShadow:[
+                                      //       BoxShadow(
+                                      //           color: Colors.grey.withOpacity(0.5),
+                                      //           spreadRadius: 1,
+                                      //           blurRadius: 30,
+                                      //           offset: Offset(0, 3),
+                                      //       ),
+                                      //   ],
+                                      // ),
                                         padding: EdgeInsets.only(top: 15 , bottom: 15),
-                                        child:Text("ساعة البدء",)
+                                        child:Container (
+                                          padding : EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(20),),
+                                            color: Colors.green[400],
+                                          ),
+                                          child : Column(
+                                            children: [
+                                              Row(
+                                                children : [
+                                                  Text("ساعة البدء   " , style : TextStyle(color: Colors.white , fontSize: 20)),
+                                                  Text ("9:00" , style : TextStyle(color: Colors.white , fontSize: 17)),
+                                                ]
+                                              ),
+                                              Row(
+                                                children : [
+                                                  Text("الوقت المقطوع لليوم  " , style : TextStyle(color: Colors.white , fontSize: 20)),
+                                                  Text ("4" , style : TextStyle(color: Colors.white , fontSize: 17)),
+                                                ]
+                                              ),
+                                            ],
+                                          )
+                                        )
                                       ),
                                     ),
                                   ],
@@ -253,18 +214,39 @@ class _CheckInOUTState extends State<CheckInOUT> {
       return  Icon(Icons.logout , size :40 , color: Colors.red);
     return Icon(Icons.login , size :40 , color: Colors.green);
   }
+  String getImage (){
+    if (checkedIn)
+      return  'images/redPerson.jpg';
+    return 'images/bluePerson.jpg';
+
+  }
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: TextButton.icon(
-         icon: getIcon(), 
-         label: Text(checkedIn? "تسجيل الخروج" : "تسجيل الدخول" , style: TextStyle(fontSize: 20 , fontWeight:FontWeight.bold,),),
-         onPressed:(){
-           setState(() {
-             checkedIn= !checkedIn;
-           });
-         }
-         )
+    return Center(
+             child: Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 crossAxisAlignment: CrossAxisAlignment.center,
+                 children: [
+                   FlatButton(
+                     child: getIcon(),
+                     onPressed: (){
+                       setState(() {
+                         checkedIn = !checkedIn;
+                       });
+                     },
+                     ),
+                   Container(
+                     height: 100.0,
+                     width: 100.0,
+                     decoration: BoxDecoration(
+                       image: DecorationImage(
+                         image: AssetImage(getImage()),
+                         fit: BoxFit.fill,
+                       ),
+                     ),
+                   ),
+                 ],
+               ),
     );
   }
 }
