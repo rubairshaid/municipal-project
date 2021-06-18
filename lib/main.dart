@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 
 void main ()
 {
@@ -79,33 +80,28 @@ class MyApp extends StatelessWidget{
                                       child: Column(
                                           children: [
                                               Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                       Container(
                                                           padding: EdgeInsets.all(15),
                                                           child: CircleAvatar(
                                                             radius: 30,
                                                             backgroundColor: Colors.purple[200].withOpacity(0.8),
-                                                            child: Icon(Icons.person, color: Colors.white , size : 35),
+                                                            child: Icon(Icons.person, color: Colors.white , size : 47),
                                                         ),
                                                       ),
                                                       Container(
-                                                          padding: EdgeInsets.fromLTRB(10,0,0,18),
+                                                          padding: EdgeInsets.fromLTRB(10,15,0,18),
                                                           child:Column(
                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                               children:[
-                                                                  Row(
-                                                                      children: [
-                                                                          Text("ربى ارشيد" ,style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20, color: Colors.white )),
-                                                                      ],
-                                                                  ),
+                                                                  Text("ربى ارشيد" ,style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20, color: Colors.white )),   
                                                                   Text("هندسة حاسوب" , style:TextStyle(color: Colors.white)),
                                                                   Text("جامعة بوليتكنك فلسطين" , style:TextStyle(color: Colors.white)),
                                                               ],
                                                           ),
                                                       )
-                                                     
                                                   ],
-
                                               ),
                                               Text("عدد الساعات" , style: TextStyle (fontSize: 20 , color : Colors.white )),
                                               Container(
@@ -113,9 +109,9 @@ class MyApp extends StatelessWidget{
                                                   child:Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                       children:[
-                                                          PersonalInfo(text:"الكلية" , num: 150 ),
-                                                          PersonalInfo(text:"المقطوعة" , num: 10 ),
-                                                          PersonalInfo(text:"المتبقية" , num: 140 ),
+                                                          TrainingHours(text:"الكلية" , num: 150 ),
+                                                          TrainingHours(text:"المقطوعة" , num: 10 ),
+                                                          TrainingHours(text:"المتبقية" , num: 140 ),
                                                           
                                                       ],
                                                   )
@@ -125,49 +121,55 @@ class MyApp extends StatelessWidget{
                                       )
                                   )
                              ),
-                            SizedBox(height: 20),
+                            SizedBox(height: 30),
+                            Divider(thickness: 2 , indent: 20,endIndent: 20),
                             Container(
-                                padding: EdgeInsets.fromLTRB(10,10,10,10),
+                                padding: EdgeInsets.fromLTRB(10,0,10,50),
                                 margin: EdgeInsets.all(10),
                                 child: Row(
                                   children: [
                                     Expanded(
                                       child: Container(
-                                      //   decoration: BoxDecoration(
-                                      //   boxShadow:[
-                                      //       BoxShadow(
-                                      //           color: Colors.grey.withOpacity(0.5),
-                                      //           spreadRadius: 1,
-                                      //           blurRadius: 30,
-                                      //           offset: Offset(0, 3),
-                                      //       ),
-                                      //   ],
-                                      // ),
                                         padding: EdgeInsets.only(top: 15 , bottom: 15),
                                         child:Container (
                                           padding : EdgeInsets.all(10),
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.all(Radius.circular(20),),
-                                            color: Colors.green[400],
                                           ),
                                           child : Column(
                                             children: [
-                                              Row(
+                                              Column(
                                                 children : [
-                                                  Text("ساعة البدء   " , style : TextStyle(color: Colors.white , fontSize: 20)),
-                                                  Text ("9:00" , style : TextStyle(color: Colors.white , fontSize: 17)),
+                                                  Text("ساعة البدء   " , style : TextStyle(fontSize: 20)),
+                                                  Text ("9:00" , style : TextStyle(fontSize: 17)),
                                                 ]
                                               ),
-                                              Row(
+                                              Column(
                                                 children : [
-                                                  Text("الوقت المقطوع لليوم  " , style : TextStyle(color: Colors.white , fontSize: 20)),
-                                                  Text ("4" , style : TextStyle(color: Colors.white , fontSize: 17)),
+                                                  Text("\nالوقت المقطوع لليوم  " , style : TextStyle( fontSize: 20)),
+                                                  Text ("4" , style : TextStyle(fontSize: 17)),
                                                 ]
                                               ),
                                             ],
                                           )
                                         )
                                       ),
+                                    ),
+                                    FlutterAnalogClock(
+                                      dateTime: DateTime.now(),
+                                      dialPlateColor: Colors.white,
+                                      borderColor: Colors.lightBlue[900],
+                                      tickColor: Colors.black,
+                                      centerPointColor: Colors.black,
+                                      showTicks: true,
+                                      showNumber: false,
+                                      borderWidth: 8.0,
+                                      hourNumberScale: 0.8,
+                                      hourNumbers: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'],
+                                      isLive: true,
+                                      width: 150.0,
+                                      height: 150.0,
+                                      decoration: const BoxDecoration(),
                                     ),
                                   ],
                                 ), 
@@ -176,26 +178,26 @@ class MyApp extends StatelessWidget{
                           ],
                       )
                   ),
-              floatingActionButton: FloatingActionButton.extended(
-                backgroundColor: Colors.orange[900],
-                foregroundColor: Colors.black,
-                icon: Icon(Icons.add ,size : 27),
-                label: Text("إضافة المهمة اليومية" , style : TextStyle (fontSize: 15 , color: Colors.white) ),
-                onPressed: (){},
+                  floatingActionButton: FloatingActionButton.extended(
+                    backgroundColor: Colors.yellow[700],
+                    foregroundColor: Colors.black,
+                    icon: Icon(Icons.add ,size : 27),
+                    label: Text("إضافة المهمة اليومية" , style : TextStyle (fontSize: 15 , color: Colors.black) ),
+                    onPressed: (){},
+                  ),
+                  bottomNavigationBar: BottomAppBar(
+                    child: Container (
+                      height: 70,
+                      decoration: BoxDecoration(
+                          border: Border(
+                            top: BorderSide(width: 3, color: Colors.blueGrey),
+                          ),
+                          color: Colors.blue,
+                        ),
+                      )
+                  ),
+                  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
               ),
-              bottomNavigationBar: BottomAppBar(
-                child: Container (
-                  height: 70,
-                   decoration: BoxDecoration(
-                      border: Border(
-                        top: BorderSide(width: 3, color: Colors.blueGrey),
-                      ),
-                      color: Colors.blue,
-                    ),
-                  )
-              ),
-              floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          ),
             )
         );
     }
@@ -212,7 +214,7 @@ class _CheckInOUTState extends State<CheckInOUT> {
   Widget getIcon(){
     if (checkedIn)
       return  Icon(Icons.logout , size :40 , color: Colors.red);
-    return Icon(Icons.login , size :40 , color: Colors.green);
+    return Icon(Icons.login , size :40 , color: Colors.blue);
   }
   String getImage (){
     if (checkedIn)
@@ -228,7 +230,13 @@ class _CheckInOUTState extends State<CheckInOUT> {
                  crossAxisAlignment: CrossAxisAlignment.center,
                  children: [
                    FlatButton(
-                     child: getIcon(),
+                     child: Column(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       children: [
+                         getIcon(),
+                         Text(checkedIn? "تسجيل خروج" : "تسجيل دخول"),
+                       ],
+                     ),
                      onPressed: (){
                        setState(() {
                          checkedIn = !checkedIn;
@@ -236,8 +244,8 @@ class _CheckInOUTState extends State<CheckInOUT> {
                      },
                      ),
                    Container(
-                     height: 100.0,
-                     width: 100.0,
+                     height: 80.0,
+                     width: 80.0,
                      decoration: BoxDecoration(
                        image: DecorationImage(
                          image: AssetImage(getImage()),
@@ -251,10 +259,10 @@ class _CheckInOUTState extends State<CheckInOUT> {
   }
 }
 
-class PersonalInfo extends StatelessWidget{
+class TrainingHours extends StatelessWidget{
     final String text ;
     final double num;
-    PersonalInfo({this.text , this.num});
+    TrainingHours({this.text , this.num});
 
     @override
     Widget build (BuildContext context)
