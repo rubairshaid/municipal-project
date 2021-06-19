@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_analog_clock/flutter_analog_clock.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'sideDrawer.dart';
 
 void main ()
 {
@@ -18,45 +20,7 @@ class MyApp extends StatelessWidget{
                     title: Text("الرئيسية", textDirection: TextDirection.rtl,),
                     centerTitle: true,
                   ),
-                  drawer: Drawer(
-                    child : Column(
-                      children: [
-                        Expanded(
-                          child: ListView(
-                            children: [
-                              ListTile(
-                                leading: Icon(Icons.home, color: Colors.blue[500] , size: 30,),
-                                trailing: Text("الرئيسية" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
-                                onTap: (){},
-                              ),
-                              Divider(thickness: 2),
-                              ListTile(
-                                leading: Icon(Icons.person, color: Colors.blue[500] , size: 30,),
-                                trailing: Text("المعلومات الشخصية" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
-                                onTap: (){},
-                              ),
-                              Divider(thickness: 2),
-                              ListTile(
-                                leading: Icon(Icons.library_books_outlined, color: Colors.blue[500] , size: 30,),
-                                trailing: Text("التقارير" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
-                                onTap: (){},
-                              ),
-                              Divider(thickness: 2),
-                            ],
-                        ),
-                      ),
-                        Container(
-                          child: Align(
-                            child: ListTile(
-                              leading :Icon(Icons.logout ,size : 30),
-                              trailing : Text("تسجيل الخروج" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
-                              onTap: (){},
-                            ),
-                          )
-                        ),
-                      ],
-                    ), 
-                  ),
+                  drawer: SideDrawer(),
                   body:Container(
                     margin: EdgeInsets.all(10),
                       child: Column(
@@ -178,13 +142,7 @@ class MyApp extends StatelessWidget{
                           ],
                       )
                   ),
-                  floatingActionButton: FloatingActionButton.extended(
-                    backgroundColor: Colors.yellow[700],
-                    foregroundColor: Colors.black,
-                    icon: Icon(Icons.add ,size : 27),
-                    label: Text("إضافة المهمة اليومية" , style : TextStyle (fontSize: 15 , color: Colors.black) ),
-                    onPressed: (){},
-                  ),
+                  floatingActionButton: TaskDialog(),
                   bottomNavigationBar: BottomAppBar(
                     child: Container (
                       height: 70,
@@ -202,7 +160,45 @@ class MyApp extends StatelessWidget{
         );
     }
 }
+class TaskDialog extends StatelessWidget {
 
+  final _dailyTask = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton.extended(
+                    backgroundColor: Colors.yellow[700],
+                    foregroundColor: Colors.black,
+                    icon: Icon(Icons.add ,size : 27),
+                    label: Text("إضافة المهمة اليومية" , style : TextStyle (fontSize: 15 , color: Colors.black) ),
+                    onPressed: (){
+                          Alert(
+                            context: context,
+                            title: "المهمة اليومية",
+                            content : TextField(
+                              controller: _dailyTask,
+                              textAlign: TextAlign.right,
+                              autofocus: true,
+                              maxLines: 10,
+                              decoration: new InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: "أدخل ما تم انجازه خلال اليوم",
+                              ),
+                            ),
+                            buttons: [
+                              DialogButton(
+                                child: Text(
+                                  "حفظ",
+                                  style: TextStyle(color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                                width: 120,
+                              )
+                            ],
+                          ).show();
+                    }
+    );           
+  }
+}
 class CheckInOUT extends StatefulWidget {
   @override
   _CheckInOUTState createState() => _CheckInOUTState();
