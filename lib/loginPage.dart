@@ -6,8 +6,6 @@ import 'package:toast/toast.dart';
 import 'user_account.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'user_account.dart';
-
 class LogInForm extends StatefulWidget {
 
   @override
@@ -19,49 +17,31 @@ class _LogInFormState extends State<LogInForm> {
   final _password = TextEditingController();
 
   var user;
-  void fetchUsers() async {
-    http.Response response = await http.post(
-      Uri.parse('http://portal.hepco.ps:7654/api/trainers'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'trainer_no': '1',
-        'password' : '123'
-      }),
-    );
-    if(response.statusCode == 200) {
-      var jsonObj= jsonDecode(response.body);
-      user = jsonObj.map((e) => User_account.fromJson(e));
-      usedUser = user ;
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>PersonalPage(),));
-    }
-    print (user);
-    Toast.show("خطأ في اسم المتدرب أو كلمة المرور", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG);
-    _clearTextFields();
-  }
-
-  Future<User_account> createAlbum() async {
+  
+  Future<User_account> fetchUser() async {
     final response = await http.post(
       Uri.parse('http://portal.hepco.ps:7654/api/trainers'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        'trainer_no': '1',
-        'password' : '123'
+        'trainer_no': _userName.text,
+        'password' : _password.text,
       }),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 ) { 
       usedUser  = User_account.fromJson(jsonDecode(response.body));
-      print (usedUser.traning_hours);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>PersonalPage(),));
-    } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-
-      throw Exception('Failed to create album.');
+      if(usedUser.id != null){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>PersonalPage(),));
+        }
+      else {
+        Toast.show("خطأ في اسم المتدرب أو كلمة المرور", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG);
+        _clearTextFields();
+      } 
+    } 
+    else {
+      throw Exception('Failed to log-in');
     }
   }
 
@@ -69,14 +49,12 @@ class _LogInFormState extends State<LogInForm> {
     _userName.text="";
     _password.text="";
   }
-  Future<User_account> futureAlbum;
-  void initState() {
-    super.initState();
-    futureAlbum = createAlbum();
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("تسجيل الدخول"),
+      ),
       body: Column(
         children: [
           Form(
@@ -115,7 +93,7 @@ class _LogInFormState extends State<LogInForm> {
                     width : 200,
                     child: RaisedButton(
                       onPressed: (){
-                        createAlbum();
+                        fetchUser();
                       },
                       color: Colors.blue,
                       child: Text ("تسجيل الدخول", style: TextStyle(fontSize: 20,color: Colors.white)),
