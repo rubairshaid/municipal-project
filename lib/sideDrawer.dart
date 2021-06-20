@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/checkPage.dart';
+import 'package:flutter_application_1/loginPage.dart';
 import 'package:flutter_application_1/taskPage.dart';
-
+import 'mainPage.dart';
 import 'personalPage.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -57,7 +57,13 @@ class SideDrawer extends StatelessWidget {
                     child: ListTile(
                       leading :Icon(Icons.logout ,size : 30),
                       trailing : Text("تسجيل الخروج" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LogInForm(),
+                            ));
+                      },
                     ),
                   )
                 ),
