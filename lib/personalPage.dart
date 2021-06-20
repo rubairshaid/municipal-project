@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/userObj.dart';
 
+import 'sideDrawer.dart';
+
 class PersonalPage extends StatelessWidget {
 
   // This widget is the root of your application.
@@ -12,45 +14,7 @@ class PersonalPage extends StatelessWidget {
           appBar: AppBar(
             title: Text("الصفحة الشخصية ", textDirection: TextDirection.rtl,),
           ),
-          drawer: Drawer(
-            child : Column(
-              children: [
-                Expanded(
-                  child: ListView(
-                    children: [
-                      ListTile(
-                        leading: Icon(Icons.home, color: Colors.blue[500] , size: 30,),
-                        title: Text("الرئيسية" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
-                        onTap: (){},
-                      ),
-                      Divider(thickness: 2),
-                      ListTile(
-                        leading: Icon(Icons.person, color: Colors.blue[500] , size: 30,),
-                        title: Text("المعلومات الشخصية" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
-                        onTap: (){},
-                      ),
-                      Divider(thickness: 2),
-                      ListTile(
-                        leading: Icon(Icons.library_books, color: Colors.blue[500] , size: 30,),
-                        title: Text("التقارير" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
-                        onTap: (){},
-                      ),
-                      Divider(thickness: 2),
-                    ],
-                  ),
-                ),
-                Container(
-                    child: Align(
-                      child: ListTile(
-                        leading :Icon(Icons.favorite ,size : 30),
-                        title : Text("تسجيل الخروج" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
-                        onTap: (){},
-                      ),
-                    )
-                ),
-              ],
-            ),
-          ),
+          drawer: SideDrawer(),
           body:Column(
               children: [
                 Expanded(

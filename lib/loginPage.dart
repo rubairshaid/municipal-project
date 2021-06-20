@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/personalPage.dart';
 import 'package:flutter_application_1/userObj.dart';
 import 'package:toast/toast.dart';
+import 'checkPage.dart';
 import 'user_account.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -33,7 +33,7 @@ class _LogInFormState extends State<LogInForm> {
     if (response.statusCode == 200 ) { 
       usedUser  = User_account.fromJson(jsonDecode(response.body));
       if(usedUser.id != null){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>PersonalPage(),));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>MainPage(),));
         }
       else {
         Toast.show("خطأ في اسم المتدرب أو كلمة المرور", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG);

@@ -3,12 +3,8 @@ import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'sideDrawer.dart';
 
-void main ()
-{
-    runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget{
+class MainPage extends StatelessWidget{
     @override 
     Widget build (BuildContext context)
     {

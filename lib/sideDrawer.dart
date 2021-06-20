@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/checkPage.dart';
+import 'package:flutter_application_1/taskPage.dart';
 
 import 'personalPage.dart';
 
@@ -14,7 +16,13 @@ class SideDrawer extends StatelessWidget {
                       ListTile(
                         leading: Icon(Icons.home, color: Colors.blue[500] , size: 30,),
                         trailing: Text("الرئيسية" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MainPage(),
+                            ));
+                        },
                       ),
                       Divider(thickness: 2),
                       ListTile(
@@ -24,7 +32,7 @@ class SideDrawer extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Personal(),
+                              builder: (context) => PersonalPage(),
                             ));
                         },
                       ),
@@ -32,7 +40,13 @@ class SideDrawer extends StatelessWidget {
                       ListTile(
                         leading: Icon(Icons.library_books_outlined, color: Colors.blue[500] , size: 30,),
                         trailing: Text("التقارير" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TasksPage(),
+                            ));
+                        },
                       ),
                       Divider(thickness: 2),
                     ],

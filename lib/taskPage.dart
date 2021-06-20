@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-void main() {
-  runApp(MyApp());
-}
-class MyApp extends StatelessWidget {
+import 'package:flutter_application_1/sideDrawer.dart';
+
+class TasksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,6 +11,7 @@ class MyApp extends StatelessWidget {
             textDirection: TextDirection.rtl, // set this property
             child: Scaffold(
               appBar : AppBar(title : Text("المهمات المنجزة")),
+              drawer: SideDrawer(),
               body :  ListView.builder(
                   itemCount: tasks.length,
                   itemBuilder: (BuildContext context, int index){
