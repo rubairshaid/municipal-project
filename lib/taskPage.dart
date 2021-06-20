@@ -20,18 +20,20 @@ class TasksPage extends StatelessWidget {
                         color: Colors.blue[50],
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
-                      margin: EdgeInsets.all(8),
-                      padding : EdgeInsets.all(8),
+                      margin: EdgeInsets.fromLTRB(15 , 10 , 15 , 5),
+                      padding : EdgeInsets.all(12),
 
                       width: double.infinity,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment : CrossAxisAlignment.start,
                         children: [
-
-                          AutoSizeText(tasks[index].taskDescription ,style :TextStyle(fontSize: 20,),maxLines: 3,),
+                          AutoSizeText(tasks[index].taskDescription ,style :TextStyle(fontSize:15,),maxLines: 3,),
                           Row(
                             mainAxisAlignment : MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
+                              Text('\n'),
                               Text(tasks[index].day, style: TextStyle(fontWeight: FontWeight.bold,)),
 
                             ],
@@ -48,7 +50,7 @@ class TasksPage extends StatelessWidget {
 }
 
 List <Task> tasks = [
-  Task("1-1-1999" , "لمهمfdjhsjkfhdksjhfksjhfdsdsfd  dsf sdf df sd dsة في اليوم الاو ذلك حاليا"),
+  Task("1-1-1999" , " مرحبا بك في عالمي المهمة رقم 1 في  تنانتانت اليوم  رقم 1 في الفرع رقم 1 في الشهر 1 هي أن لا تفعل شيء"),
   Task("2-2-2000" , "this is the sec pthing go ok;;;;!!!!!!111"),
   Task("1-1-1999" , "لمهمة في اليوم الاو ذلك حاليا"),
   Task("2-2-2000" , "this is the sec pthing go ok;;;fdg111"),
