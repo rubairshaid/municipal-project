@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'sideDrawer.dart';
+import 'userObj.dart';
 
 
 class MainPage extends StatelessWidget{
@@ -54,9 +55,9 @@ class MainPage extends StatelessWidget{
                                                           child:Column(
                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                               children:[
-                                                                  Text("ربى ارشيد" ,style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20, color: Colors.white )),   
-                                                                  Text("هندسة حاسوب" , style:TextStyle(color: Colors.white)),
-                                                                  Text("جامعة بوليتكنك فلسطين" , style:TextStyle(color: Colors.white)),
+                                                                  Text(usedUser.name ,style: TextStyle(fontWeight: FontWeight.bold , fontSize: 20, color: Colors.white )),   
+                                                                  Text(usedUser.major , style:TextStyle(color: Colors.white)),
+                                                                  Text(usedUser.univirsity, style:TextStyle(color: Colors.white)),
                                                               ],
                                                           ),
                                                       )
@@ -68,9 +69,9 @@ class MainPage extends StatelessWidget{
                                                   child:Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                       children:[
-                                                          TrainingHours(text:"الكلية" , num: 150 ),
-                                                          TrainingHours(text:"المقطوعة" , num: 10 ),
-                                                          TrainingHours(text:"المتبقية" , num: 140 ),
+                                                          TrainingHours(text:"الكلية" , hours: usedUser.traning_hours ),
+                                                          TrainingHours(text:"المقطوعة" , hours: '10' ),
+                                                          TrainingHours(text:"المتبقية" , hours: '140' ),
                                                           
                                                       ],
                                                   )
@@ -251,8 +252,8 @@ class _CheckInOUTState extends State<CheckInOUT> {
 
 class TrainingHours extends StatelessWidget{
     final String text ;
-    final double num;
-    TrainingHours({this.text , this.num});
+    final String hours;
+    TrainingHours({this.text , this.hours});
 
     @override
     Widget build (BuildContext context)
@@ -260,7 +261,7 @@ class TrainingHours extends StatelessWidget{
         return Column(
                     children:[
                       Text(this.text , style: TextStyle(color: Colors.white)),
-                      Text(this.num.toString(),style: TextStyle(color: Colors.white ,fontSize: 18, fontWeight:FontWeight.bold,)),
+                      Text(this.hours,style: TextStyle(color: Colors.white ,fontSize: 18, fontWeight:FontWeight.bold,)),
                         ],
                     );
     }

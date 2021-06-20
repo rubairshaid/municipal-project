@@ -52,60 +52,63 @@ class _LogInFormState extends State<LogInForm> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("تسجيل الدخول"),
-      ),
-      body: Column(
-        children: [
-          Form(
-            child : Container(
-              padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
-              child: Column(
-                children: [
-                  Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: TextField(
-                        controller: _userName,
-                        textAlign: TextAlign.right,
-                        autofocus: true,
-                        decoration: new InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "اسم المتدرب",
+    return Directionality(
+            textDirection: TextDirection.rtl,
+          child: Scaffold(
+        appBar: AppBar(
+          title: Text("تسجيل الدخول"),
+        ),
+        body: Column(
+          children: [
+            Form(
+              child : Container(
+                padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
+                child: Column(
+                  children: [
+                    Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: TextField(
+                          controller: _userName,
+                          textAlign: TextAlign.right,
+                          autofocus: true,
+                          decoration: new InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "اسم المتدرب",
+                          ),
                         ),
-                      ),
-                  ),
-                  SizedBox(height: 30),
-                  Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: TextField(
-                        controller: _password,
-                        textAlign: TextAlign.right,
-                        autofocus: true,
-                        decoration: new InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "كلمة المرور",
-                        ),
-                      ),
-                  ),
-                  SizedBox(height: 80),
-                  SizedBox(
-                    height: 60,
-                    width : 200,
-                    child: RaisedButton(
-                      onPressed: (){
-                        fetchUser();
-                      },
-                      color: Colors.blue,
-                      child: Text ("تسجيل الدخول", style: TextStyle(fontSize: 20,color: Colors.white)),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
                     ),
-                  )
-                ]
+                    SizedBox(height: 30),
+                    Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: TextField(
+                          controller: _password,
+                          textAlign: TextAlign.right,
+                          autofocus: true,
+                          decoration: new InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "كلمة المرور",
+                          ),
+                        ),
+                    ),
+                    SizedBox(height: 80),
+                    SizedBox(
+                      height: 60,
+                      width : 200,
+                      child: RaisedButton(
+                        onPressed: (){
+                          fetchUser();
+                        },
+                        color: Colors.blue,
+                        child: Text ("تسجيل الدخول", style: TextStyle(fontSize: 20,color: Colors.white)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+                      ),
+                    )
+                  ]
+                )
               )
             )
-          )
-        ]
+          ]
+        ),
       ),
     );
   }
