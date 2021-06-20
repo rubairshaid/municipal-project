@@ -17,6 +17,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
+
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
@@ -30,6 +31,9 @@ dependencies:
   cupertino_icons: ^1.0.0
   toast: ^0.1.5
   auto_size_text: ^2.1.0
+  http: ^0.12.2
+  flutter_spinkit: ^4.1.2
+  flutter_launcher_icons: "0.7.3"
 
 dev_dependencies:
   flutter_test:
