@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/userObj.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
+class PersonalPage extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home:Directionality( // add this
+    return Directionality( // add this
         textDirection: TextDirection.rtl, // set this property
         child: Scaffold(
           appBar: AppBar(
@@ -62,17 +59,17 @@ class MyApp extends StatelessWidget {
                       padding : EdgeInsets.all(5),
                       child:ListView(
                         children: [
-                          ListItems(text1:"الاسم" , text2:"ربا ارشيد" , iconPara:"name"),
-                          ListItems(text1:"الايميل" , text2:"----@gmail.com" , iconPara:"email"),
+                          ListItems(text1:"الاسم" , text2:usedUser.name , iconPara:"name"),
+                          ListItems(text1:"الايميل" , text2: usedUser.emial , iconPara:"email"),
                           ListItems(text1:"رقم الجوال" , text2:"000555" , iconPara:"phone"),
-                          ListItems(text1:"الجامعة" , text2:"بولتكنيك فلسطين " , iconPara:"univ"),
-                          ListItems(text1:"التخصص" , text2:"هندسة حاسوب" , iconPara:"major"),
-                          ListItems(text1:"السنة" , text2:"2021" , iconPara:"year"),
+                          ListItems(text1:"الجامعة" , text2:usedUser.univirsity , iconPara:"univ"),
+                          ListItems(text1:"التخصص" , text2:usedUser.major , iconPara:"major"),
+                          ListItems(text1:"السنة" , text2:usedUser.date_of_traning , iconPara:"year"),
                           ListItems(text1:"رقم الهوية" , text2:"00000" , iconPara:"id"),
                           ListItems(text1:"نوع التدريب" , text2:"برمجة" , iconPara:"subject"),
 
                           ListItems(text1:"المشرف" , text2:"صلاح ادكيدك" , iconPara:"supervisor"),
-                          ListItems(text1:"عدد ساعات التدريب" , text2:"150" , iconPara:"time"),
+                          ListItems(text1:"عدد ساعات التدريب" , text2:usedUser.traning_hours , iconPara:"time"),
 
                         ],
                       ),
@@ -84,10 +81,9 @@ class MyApp extends StatelessWidget {
           ),
 
         ),
-      ),
+      );
 
 
-    );
   }
 }
 class ListItems extends StatelessWidget{

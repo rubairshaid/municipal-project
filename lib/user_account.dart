@@ -1,9 +1,9 @@
 class User_account{
   int id;
+  String gender;
   String name;
   String univirsity;
   String major;
-  String gender;
   String birthday;
   String image;
   String traning_hours;
@@ -26,13 +26,13 @@ class User_account{
       major: json['major'],
       gender: json['gender'],
       birthday: json['birthday'],
-      image:json['image'],
+      image:"meme",
       traning_hours: json['traning_hours'],
       date_of_traning:json['date_of_traning'] ,
       created_at: json['created_at'],
       updated_at: json["updated_at"],
       trainer_no: json["trainer_no"],
-      emial: json['email'],
+      emial: json['emial'],
       password: json['password'],
 
     );
