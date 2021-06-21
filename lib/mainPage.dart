@@ -230,7 +230,7 @@ class CheckInOUT extends StatefulWidget {
 }
 
 class _CheckInOUTState extends State<CheckInOUT> {
-  bool checkedIn = true;
+  bool checkedIn = false;
 
   Widget getCheckColumn() {
     if (checkedIn)
