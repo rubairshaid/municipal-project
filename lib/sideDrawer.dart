@@ -23,12 +23,12 @@ class SideDrawer extends StatelessWidget {
               children: [
                 Divider(thickness: 2),
                 ListTile(
-                  leading: Icon(
+                  trailing: Icon(
                     Icons.home,
                     color: Colors.blue[500],
                     size: 30,
                   ),
-                  trailing: Text(
+                  leading: Text(
                     "الرئيسية",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -42,12 +42,12 @@ class SideDrawer extends StatelessWidget {
                 ),
                 Divider(thickness: 2),
                 ListTile(
-                  leading: Icon(
+                  trailing: Icon(
                     Icons.person,
                     color: Colors.blue[500],
                     size: 30,
                   ),
-                  trailing: Text(
+                  leading: Text(
                     "المعلومات الشخصية",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -61,12 +61,12 @@ class SideDrawer extends StatelessWidget {
                 ),
                 Divider(thickness: 2),
                 ListTile(
-                  leading: Icon(
+                  trailing: Icon(
                     Icons.library_books,
                     color: Colors.blue[500],
                     size: 30,
                   ),
-                  trailing: Text(
+                  leading: Text(
                     "التقارير",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -85,8 +85,8 @@ class SideDrawer extends StatelessWidget {
           Container(
               child: Align(
             child: ListTile(
-              leading: Icon(Icons.fast_forward, size: 30),
-              trailing: Text(
+              trailing: Icon(Icons.logout, size: 30),
+              leading: Text(
                 "تسجيل الخروج",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),

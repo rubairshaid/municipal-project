@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/userObj.dart';
@@ -36,7 +37,7 @@ class _LogInFormState extends State<LogInForm> {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>MainPage(),));
         }
       else {
-        Toast.show("خطأ في اسم المتدرب أو كلمة المرور", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG);
+        Toast.show("خطأ في اسم المتدرب أو كلمة المرور", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
         _clearTextFields();
       } 
     } 
@@ -54,59 +55,77 @@ class _LogInFormState extends State<LogInForm> {
     return Directionality(
             textDirection: TextDirection.rtl,
           child: Scaffold(
-        appBar: AppBar(
-          title: Text("تسجيل الدخول"),
-        ),
-        body: Column(
-          children: [
-            Form(
-              child : Container(
-                padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
-                child: Column(
-                  children: [
-                    Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: TextField(
-                          controller: _userName,
-                          textAlign: TextAlign.right,
-                          autofocus: true,
-                          decoration: new InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "رقم المتدرب",
+            backgroundColor: Colors.grey[100],
+        body: SingleChildScrollView(
+           child: Column(
+            children: [
+              Container(
+                margin : EdgeInsets.only(top: 80),
+                height: 200.0,
+                width: 200.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('images/ManiLogo2.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+              Form(
+                child : Container(
+                  padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
+                  child: Column(
+                    children: [
+                      Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: TextField(
+                            controller: _userName,
+                            textAlign: TextAlign.right,
+                            autofocus: true,
+                            decoration: new InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: "رقم المتدرب",
+                            ),
                           ),
-                        ),
-                    ),
-                    SizedBox(height: 30),
-                    Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: TextField(
-                          controller: _password,
-                          textAlign: TextAlign.right,
-                          autofocus: true,
-                          decoration: new InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "كلمة المرور",
-                          ),
-                        ),
-                    ),
-                    SizedBox(height: 80),
-                    SizedBox(
-                      height: 60,
-                      width : 200,
-                      child: RaisedButton(
-                        onPressed: (){
-                          fetchUser();
-                        },
-                        color: Colors.blue,
-                        child: Text ("تسجيل الدخول", style: TextStyle(fontSize: 20,color: Colors.white)),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
                       ),
-                    )
-                  ]
+                      SizedBox(height: 30),
+                      Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: TextField(
+                            obscureText: true,
+                            controller: _password,
+                            textAlign: TextAlign.right,
+                            autofocus: true,
+                            decoration: new InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: "كلمة المرور",
+                            ),
+                          ),
+                      ),
+                      SizedBox(height: 80),
+                      SizedBox(
+                        height: 60,
+                        width : 200,
+                        child: RaisedButton(
+                          onPressed: (){
+                            fetchUser();
+                          },
+                          color: Colors.blue,
+                          child: Text ("تسجيل الدخول", style: TextStyle(fontSize: 20,color: Colors.white)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+                        ),
+                      ),
+                      SizedBox(height: 100),
+                    ]
+                  )
                 )
-              )
-            )
-          ]
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(30, 0, 20, 0),
+                child: AutoSizeText("إذا واجهتك مشاكل في تسجيل الدخول قم بمراجعة الأستاذ فادي الجعبري رئيس قسم الموارد البشرية في الطابق الرابع",
+                style :TextStyle(fontSize:15,color: Colors.grey[800]),maxLines: 3,),
+              ),
+            ]
+          ),
         ),
       ),
     );

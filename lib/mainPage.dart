@@ -237,16 +237,16 @@ class _CheckInOUTState extends State<CheckInOUT> {
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Icon(Icons.logout, size: 50, color: Colors.red),
+          Icon(Icons.logout, size: 50, color: Colors.red[800]),
           Text("تسجيل خروج ",
-              style: TextStyle(fontSize: 18, color: Colors.red)),
+              style: TextStyle(fontSize: 20, color: Colors.red[800], fontWeight: FontWeight.bold)),
         ],
       );
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(Icons.login, size: 50, color: Colors.blue),
-        Text("تسجيل دخول", style: TextStyle(fontSize: 18, color: Colors.blue)),
+        Icon(Icons.login, size: 50, color: Colors.blue[800]),
+        Text("تسجيل دخول", style: TextStyle(fontSize: 20, color: Colors.blue[800] , fontWeight: FontWeight.bold),),
       ],
     );
   }
