@@ -38,7 +38,7 @@ class SideDrawer extends StatelessWidget {
                       ),
                       Divider(thickness: 2),
                       ListTile(
-                        leading: Icon(Icons.library_books_outlined, color: Colors.blue[500] , size: 30,),
+                        leading: Icon(Icons.library_books, color: Colors.blue[500] , size: 30,),
                         trailing: Text("التقارير" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
                         onTap: (){
                           Navigator.pushReplacement(
@@ -55,7 +55,7 @@ class SideDrawer extends StatelessWidget {
                 Container(
                   child: Align(
                     child: ListTile(
-                      leading :Icon(Icons.logout ,size : 30),
+                      leading :Icon(Icons.fast_forward ,size : 30),
                       trailing : Text("تسجيل الخروج" , style: TextStyle(fontSize: 18 , fontWeight: FontWeight.bold),),
                       onTap: (){
                         Navigator.pushReplacement(
