@@ -73,7 +73,7 @@ class _LogInFormState extends State<LogInForm> {
                           autofocus: true,
                           decoration: new InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: "اسم المتدرب",
+                              labelText: "رقم المتدرب",
                           ),
                         ),
                     ),
