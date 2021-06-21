@@ -72,7 +72,7 @@ class _LogInFormState extends State<LogInForm> {
               ),
               Form(
                 child : Container(
-                  padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
+                  padding: EdgeInsets.fromLTRB(40, 50, 40, 50),
                   child: Column(
                     children: [
                       Directionality(
