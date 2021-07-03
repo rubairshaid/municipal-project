@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:toast/toast.dart';
 import 'sideDrawer.dart';
 import 'userObj.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
+var startTime="";
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -120,7 +124,7 @@ class MainPage extends StatelessWidget {
                                       Column(children: [
                                         Text("ساعة البدء   ",
                                             style: TextStyle(fontSize: 20)),
-                                        Text("9:00",
+                                        Text(startTime,
                                             style: TextStyle(fontSize: 17)),
                                       ]),
                                       Column(children: [
@@ -185,8 +189,14 @@ class MainPage extends StatelessWidget {
   }
 }
 
-class TaskDialog extends StatelessWidget {
+class TaskDialog extends StatefulWidget {
+  @override
+  _TaskDialogState createState() => _TaskDialogState();
+}
+
+class _TaskDialogState extends State<TaskDialog> {
   final _dailyTask = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
@@ -196,9 +206,17 @@ class TaskDialog extends StatelessWidget {
         label: Text("إضافة المهمة اليومية",
             style: TextStyle(fontSize: 15, color: Colors.black)),
         onPressed: () {
-          Alert(
-            context: context,
-            title: "المهمة اليومية",
+          _alertCode(context);
+        });
+  }
+  void _alertCode (BuildContext context)
+    {
+      showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Text("إضافة المهمة اليومية" , textAlign: TextAlign.center,),
+            titlePadding: EdgeInsets.only(top:40),
             content: TextField(
               controller: _dailyTask,
               textAlign: TextAlign.right,
@@ -209,19 +227,52 @@ class TaskDialog extends StatelessWidget {
                 hintText: "أدخل ما تم انجازه خلال اليوم",
               ),
             ),
-            buttons: [
-              DialogButton(
-                child: Text(
-                  "حفظ",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+            actions: [
+              FlatButton(
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+                padding: EdgeInsets.all(10),
+                color: Colors.blue,
+                child: Text("إلغاء"),
+                                
+              ),
+                FlatButton(
+                onPressed: () async {
+                  if(_dailyTask.text!="")
+                  {
+                    final response = await http.post(
+                      Uri.parse('http://portal.hepco.ps:7654/api/trainer-tasks'),
+                      headers: <String, String>{
+                        'Content-Type': 'application/json; charset=UTF-8',
+                      },
+                      body: jsonEncode(<String,String>{
+                        'trainer_id': usedUser.id.toString(),
+                        'task' : _dailyTask.text,
+                      }),
+                    );
+                    if (response.statusCode == 200 ) { 
+                      _dailyTask.text="";
+                      Toast.show(" تم حفظ المهمة لليوم بنجاح :)", context , backgroundColor: Colors.green[300] , duration:Toast.LENGTH_LONG , gravity: 30);
+                    }
+                    else{
+                      Toast.show("حدث خطأ ما اثناء تسجيل المهمة", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
+                    }
+                    Navigator.pop(context);
+                  }
+                  else 
+                    Toast.show("قم بتعبئة الحقل", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
+              },
+              padding: EdgeInsets.all(10),
+              color: Colors.blue,
+              child: Text("حفظ"),
                 ),
-                onPressed: () => Navigator.pop(context),
-                width: 120,
-              )
             ],
-          ).show();
-        });
-  }
+          );
+        }
+        );
+      
+    }
 }
 
 class CheckInOUT extends StatefulWidget {
@@ -250,7 +301,25 @@ class _CheckInOUTState extends State<CheckInOUT> {
       ],
     );
   }
+  Future<void> checkInOutFunctionality() async {
+      final response = await http.post(
+        Uri.parse('http://portal.hepco.ps:7654/api/trainee-attendances'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, int>{
+          'trainer_id': usedUser.id,
+        }),
+      );
+      if (response.statusCode == 200 ) { 
+        var data = jsonDecode(response.body);
 
+        setState(() {
+          startTime = data['data']['check_in'];
+          checkedIn = !checkedIn;
+        });
+      } 
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -264,9 +333,7 @@ class _CheckInOUTState extends State<CheckInOUT> {
             FlatButton(
               child: getCheckColumn(),
               onPressed: () {
-                setState(() {
-                  checkedIn = !checkedIn;
-                });
+                checkInOutFunctionality();
               },
             ),
           ],
