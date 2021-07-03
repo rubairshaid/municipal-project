@@ -233,17 +233,19 @@ class _TaskDialogState extends State<TaskDialog> {
             actions: [
               
               DialogButton(
+                width:110,
+                height:40,
+                color: Colors.blue,
+                child: Text("إلغاء", style: TextStyle(color:Colors.white,fontSize: 17),),
                 onPressed: (){
                   Navigator.of(context).pop();
                 },
-                padding: EdgeInsets.fromLTRB(35,5,35,5),
-                color: Colors.blue,
-                child: Text("إلغاء", style: TextStyle(color:Colors.white,fontSize: 17),),
                                 
               ),
               DialogButton(
                 color: Colors.blue,
-                padding: EdgeInsets.fromLTRB(35,5,35,5),
+                width:110,
+                height:40,
                 child: Text("حفظ", style: TextStyle(color:Colors.white,fontSize: 17),),
               onPressed: () async {
                 if(_dailyTask.text!="")
@@ -260,15 +262,15 @@ class _TaskDialogState extends State<TaskDialog> {
                   );
                   if (response.statusCode == 200 ) { 
                     _dailyTask.text="";
-                    Toast.show(" تم حفظ المهمة لليوم بنجاح :)", context , backgroundColor: Colors.green[300] , duration:Toast.LENGTH_LONG , gravity: 30);
+                    Toast.show(" :) تم حفظ مهمة اليوم بنجاح", context , backgroundColor: Colors.green[300] , duration:Toast.LENGTH_LONG , gravity: 30);
                   }
                   else{
-                    Toast.show("حدث خطأ ما اثناء تسجيل المهمة", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
+                    Toast.show("حدث خطأ ما أثناء تسجيل المهمة", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
                   }
                   Navigator.pop(context);
                 }
                 else 
-                  Toast.show("قم بتعبئة الحقل", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
+                  Toast.show(":D قم بتعبئة الحقل", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
             },
               ),
             ],
