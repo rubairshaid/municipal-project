@@ -31,7 +31,6 @@ class PersonalPage extends StatelessWidget {
                           ListItems(text1:"السنة" , text2:usedUser.date_of_traning , iconPara:"year"),
                           ListItems(text1:"رقم الهوية" , text2:"00000" , iconPara:"id"),
                           ListItems(text1:"نوع التدريب" , text2:"برمجة" , iconPara:"subject"),
-
                           ListItems(text1:"المشرف" , text2:"صلاح ادكيدك" , iconPara:"supervisor"),
                           ListItems(text1:"عدد ساعات التدريب" , text2:usedUser.traning_hours , iconPara:"time"),
 

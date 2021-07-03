@@ -3,6 +3,9 @@ import 'package:flutter_application_1/loginPage.dart';
 import 'package:flutter_application_1/taskPage.dart';
 import 'mainPage.dart';
 import 'personalPage.dart';
+import 'userObj.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class SideDrawer extends StatelessWidget {
   @override
@@ -67,15 +70,22 @@ class SideDrawer extends StatelessWidget {
                     size: 30,
                   ),
                   leading: Text(
-                    "التقارير",
+                    "المهمات",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  onTap: () {
-                    Navigator.pushReplacement(
+                  onTap: () async {
+                    http.Response httpRes = await http.get ('http://portal.hepco.ps:7654/api/trainer-tasks?trainer_id=${usedUser.id}');
+                    if (httpRes.statusCode == 200)
+                    {
+                      var jsonStr = jsonDecode(httpRes.body) as List;
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TasksPage(),
+                          builder: (context) => TasksPage(jsonStr),
                         ));
+                    }
+    
+                    
                   },
                 ),
                 Divider(thickness: 2),

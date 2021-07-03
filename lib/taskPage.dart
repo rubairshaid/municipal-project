@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_application_1/sideDrawer.dart';
-
+import 'package:http/http.dart' as http;
 class TasksPage extends StatelessWidget {
+  List <dynamic> tasks;
+
+  TasksPage(this.tasks);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,13 +31,13 @@ class TasksPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment : CrossAxisAlignment.start,
                         children: [
-                          AutoSizeText(tasks[index].taskDescription ,style :TextStyle(fontSize:15,),maxLines: 3,),
+                          AutoSizeText(tasks[index]['task']==null? "لم يتم وضع مهمة":tasks[index]['task'] ,style :TextStyle(fontSize:15,),maxLines: 3,),
                           Row(
                             mainAxisAlignment : MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text('\n'),
-                              Text(tasks[index].day, style: TextStyle(fontWeight: FontWeight.bold,)),
+                              Text(tasks[index]['created_at'].substring(0,10), style: TextStyle(fontWeight: FontWeight.bold,)),
 
                             ],
                           ),
@@ -49,22 +52,3 @@ class TasksPage extends StatelessWidget {
   }
 }
 
-List <Task> tasks = [
-  Task("1-1-1999" , " مرحبا بك في عالمي المهمة رقم 1 في  اليوم  رقم 1 في الفرع رقم 1 في الشهر 1 هي أن لا تفعل شيء"),
-  Task("2-2-2000" , "this is the sec pthing go ok;;;;!!!!!!111"),
-  Task("1-1-1999" , "لمهمة في اليوم الاو ذلك حاليا"),
-  Task("2-2-2000" , "this is the sec pthing go ok;;;fdg111"),
-  Task("1-1-1999" , "لمهمة في اليوم الاو ذلك حاليا"),
-  Task("2-2-2000" , "this is the sec pthing gooooooooooooooooooooooooo ok;;;;!!!!!!1fffffffffffffffffff"
-      "fffffffffffffffffffffff"
-      "ffffffffffffff"
-      "f"
-      "11"),
-  Task("1-1-1999" , "القيام بالمهمة رقم واحد واثنان وثلاثة ويوبةسينبتمينلتيمن الاتل لا لال لالاتلات ل ا"),
-  Task("2-2-2000" , "this is the sec pthing go ok;;;;!!!!!!111"),
-];
-class Task {
-  String day;
-  String taskDescription;
-  Task(this.day , this.taskDescription);
-}
