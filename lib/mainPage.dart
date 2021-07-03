@@ -229,47 +229,48 @@ class _TaskDialogState extends State<TaskDialog> {
                 hintText: "أدخل ما تم انجازه خلال اليوم",
               ),
             ),
-            actionsPadding: EdgeInsets.only(right: 26),
+            actionsPadding: EdgeInsets.only(right: 10,left: 10),
             actions: [
-              FlatButton(
+              
+              DialogButton(
                 onPressed: (){
                   Navigator.of(context).pop();
                 },
                 padding: EdgeInsets.fromLTRB(35,5,35,5),
                 color: Colors.blue,
-                child: Text("إلغاء"),
+                child: Text("إلغاء", style: TextStyle(color:Colors.white,fontSize: 17),),
                                 
               ),
-                FlatButton(
-                  color: Colors.blue,
-                  padding: EdgeInsets.fromLTRB(35,5,35,5),
-                  child: Text("حفظ"),
-                onPressed: () async {
-                  if(_dailyTask.text!="")
-                  {
-                    final response = await http.post(
-                      Uri.parse('http://portal.hepco.ps:7654/api/trainer-tasks'),
-                      headers: <String, String>{
-                        'Content-Type': 'application/json; charset=UTF-8',
-                      },
-                      body: jsonEncode(<String,String>{
-                        'trainer_id': usedUser.id.toString(),
-                        'task' : _dailyTask.text,
-                      }),
-                    );
-                    if (response.statusCode == 200 ) { 
-                      _dailyTask.text="";
-                      Toast.show(" تم حفظ المهمة لليوم بنجاح :)", context , backgroundColor: Colors.green[300] , duration:Toast.LENGTH_LONG , gravity: 30);
-                    }
-                    else{
-                      Toast.show("حدث خطأ ما اثناء تسجيل المهمة", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
-                    }
-                    Navigator.pop(context);
+              DialogButton(
+                color: Colors.blue,
+                padding: EdgeInsets.fromLTRB(35,5,35,5),
+                child: Text("حفظ", style: TextStyle(color:Colors.white,fontSize: 17),),
+              onPressed: () async {
+                if(_dailyTask.text!="")
+                {
+                  final response = await http.post(
+                    Uri.parse('http://portal.hepco.ps:7654/api/trainer-tasks'),
+                    headers: <String, String>{
+                      'Content-Type': 'application/json; charset=UTF-8',
+                    },
+                    body: jsonEncode(<String,String>{
+                      'trainer_id': usedUser.id.toString(),
+                      'task' : _dailyTask.text,
+                    }),
+                  );
+                  if (response.statusCode == 200 ) { 
+                    _dailyTask.text="";
+                    Toast.show(" تم حفظ المهمة لليوم بنجاح :)", context , backgroundColor: Colors.green[300] , duration:Toast.LENGTH_LONG , gravity: 30);
                   }
-                  else 
-                    Toast.show("قم بتعبئة الحقل", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
-              },
-                ),
+                  else{
+                    Toast.show("حدث خطأ ما اثناء تسجيل المهمة", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
+                  }
+                  Navigator.pop(context);
+                }
+                else 
+                  Toast.show("قم بتعبئة الحقل", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
+            },
+              ),
             ],
           );
         }
