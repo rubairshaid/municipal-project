@@ -217,6 +217,8 @@ class _TaskDialogState extends State<TaskDialog> {
           return AlertDialog(
             title: Text("إضافة المهمة اليومية" , textAlign: TextAlign.center,),
             titlePadding: EdgeInsets.only(top:40),
+            shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(15.0),),
             content: TextField(
               controller: _dailyTask,
               textAlign: TextAlign.right,
@@ -227,17 +229,21 @@ class _TaskDialogState extends State<TaskDialog> {
                 hintText: "أدخل ما تم انجازه خلال اليوم",
               ),
             ),
+            actionsPadding: EdgeInsets.only(right: 26),
             actions: [
               FlatButton(
                 onPressed: (){
                   Navigator.of(context).pop();
                 },
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.fromLTRB(35,5,35,5),
                 color: Colors.blue,
                 child: Text("إلغاء"),
                                 
               ),
                 FlatButton(
+                  color: Colors.blue,
+                  padding: EdgeInsets.fromLTRB(35,5,35,5),
+                  child: Text("حفظ"),
                 onPressed: () async {
                   if(_dailyTask.text!="")
                   {
@@ -263,9 +269,6 @@ class _TaskDialogState extends State<TaskDialog> {
                   else 
                     Toast.show("قم بتعبئة الحقل", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
               },
-              padding: EdgeInsets.all(10),
-              color: Colors.blue,
-              child: Text("حفظ"),
                 ),
             ],
           );
