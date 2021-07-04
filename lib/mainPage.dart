@@ -413,7 +413,6 @@ class _CheckInOUTState extends State<CheckInOUT> {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
         startTime = data['data']['check_in'];
-        // print(startTime);
         final prefs = await SharedPreferences.getInstance();
         setState(() {
           _checked = !_checked;
