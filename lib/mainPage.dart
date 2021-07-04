@@ -26,13 +26,27 @@ class _MainPageState extends State<MainPage> {
 
   void _loadStartTime() async {
     final prefs = await SharedPreferences.getInstance();
-    startTime = prefs.getString(usedUser.id.toString()+'S')?? "";
+    String now = DateTime.now().toString().substring(0, 10);
+    String savedStartTime = prefs.getString("date")?? now;
+
+    if(savedStartTime !=now)
+    {
+      print("!=");
+      prefs.clear();
+      prefs.setString('date',now);
+    }
+    else print("-===================");
+    startTime = prefs.getString(usedUser.id.toString()+'S')?? "- - : - -";
     print("startsd ");
     print(startTime);
+
+    setState(() {
+      
+    });
   }
 
   @override
-  void initState() {
+  initState(){
     super.initState();
     _loadStartTime();
   }
@@ -354,14 +368,7 @@ class _CheckInOUTState extends State<CheckInOUT> {
     final prefs = await SharedPreferences.getInstance();
     String s = (usedUser.id.toString() + now).toString();
     _checked = (prefs.getBool(s) ?? false);
-    savedStartTime = prefs.getString("date")?? now;
-    if(prefs.getString("date") !=now)
-    {
-      print("!=");
-      prefs.clear();
-      prefs.setString('date',now);
-    }
-
+    
   }
 
 
@@ -406,7 +413,7 @@ class _CheckInOUTState extends State<CheckInOUT> {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
         startTime = data['data']['check_in'];
-        print(startTime);
+        // print(startTime);
         final prefs = await SharedPreferences.getInstance();
         setState(() {
           _checked = !_checked;
@@ -415,7 +422,7 @@ class _CheckInOUTState extends State<CheckInOUT> {
           print(usedUser.id.runtimeType);
           String s = (usedUser.id.toString() + now).toString();
           print(s);
-          prefs.setString(usedUser.id.toString()+'S', startTime);
+          prefs.setString(usedUser.id.toString()+'S', data['data']['check_in']);
           prefs.setBool(s, _checked);
         });
     }

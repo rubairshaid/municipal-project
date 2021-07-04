@@ -1,2 +1,2 @@
 var usedUser ;
-var startTime = "";
+String startTime;
