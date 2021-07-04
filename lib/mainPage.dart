@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -6,8 +8,10 @@ import 'sideDrawer.dart';
 import 'userObj.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
-var startTime="";
+var startTime = "";
+
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -209,16 +213,20 @@ class _TaskDialogState extends State<TaskDialog> {
           _alertCode(context);
         });
   }
-  void _alertCode (BuildContext context)
-    {
-      showDialog(
+
+  void _alertCode(BuildContext context) {
+    showDialog(
         context: context,
-        builder: (BuildContext context){
+        builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("إضافة المهمة اليومية" , textAlign: TextAlign.center,),
-            titlePadding: EdgeInsets.only(top:40),
+            title: Text(
+              "إضافة المهمة اليومية",
+              textAlign: TextAlign.center,
+            ),
+            titlePadding: EdgeInsets.only(top: 40),
             shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(15.0),),
+              borderRadius: new BorderRadius.circular(15.0),
+            ),
             content: TextField(
               controller: _dailyTask,
               textAlign: TextAlign.right,
@@ -229,56 +237,65 @@ class _TaskDialogState extends State<TaskDialog> {
                 hintText: "أدخل ما تم انجازه خلال اليوم",
               ),
             ),
-            actionsPadding: EdgeInsets.only(right: 10,left: 10),
+            actionsPadding: EdgeInsets.only(right: 10, left: 10),
             actions: [
-              
               DialogButton(
-                width:110,
-                height:40,
+                width: 110,
+                height: 40,
                 color: Colors.blue,
-                child: Text("إلغاء", style: TextStyle(color:Colors.white,fontSize: 17),),
-                onPressed: (){
+                child: Text(
+                  "إلغاء",
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+                onPressed: () {
                   Navigator.of(context).pop();
                 },
-                                
               ),
               DialogButton(
                 color: Colors.blue,
-                width:110,
-                height:40,
-                child: Text("حفظ", style: TextStyle(color:Colors.white,fontSize: 17),),
-              onPressed: () async {
-                if(_dailyTask.text!="")
-                {
-                  final response = await http.post(
-                    Uri.parse('http://portal.hepco.ps:7654/api/trainer-tasks'),
-                    headers: <String, String>{
-                      'Content-Type': 'application/json; charset=UTF-8',
-                    },
-                    body: jsonEncode(<String,String>{
-                      'trainer_id': usedUser.id.toString(),
-                      'task' : _dailyTask.text,
-                    }),
-                  );
-                  if (response.statusCode == 200 ) { 
-                    _dailyTask.text="";
-                    Toast.show(" :) تم حفظ مهمة اليوم بنجاح", context , backgroundColor: Colors.green[300] , duration:Toast.LENGTH_LONG , gravity: 30);
-                  }
-                  else{
-                    Toast.show("حدث خطأ ما أثناء تسجيل المهمة", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
-                  }
-                  Navigator.pop(context);
-                }
-                else 
-                  Toast.show(":D قم بتعبئة الحقل", context , backgroundColor: Colors.red , duration:Toast.LENGTH_LONG , gravity: 30);
-            },
+                width: 110,
+                height: 40,
+                child: Text(
+                  "حفظ",
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+                onPressed: () async {
+                  if (_dailyTask.text != "") {
+                    final response = await http.post(
+                      Uri.parse(
+                          'http://portal.hepco.ps:7654/api/trainer-tasks'),
+                      headers: <String, String>{
+                        'Content-Type': 'application/json; charset=UTF-8',
+                      },
+                      body: jsonEncode(<String, String>{
+                        'trainer_id': usedUser.id.toString(),
+                        'task': _dailyTask.text,
+                      }),
+                    );
+                    if (response.statusCode == 200) {
+                      _dailyTask.text = "";
+                      Toast.show(" :) تم حفظ مهمة اليوم بنجاح", context,
+                          backgroundColor: Colors.green[300],
+                          duration: Toast.LENGTH_LONG,
+                          gravity: 30);
+                    } else {
+                      Toast.show("حدث خطأ ما أثناء تسجيل المهمة", context,
+                          backgroundColor: Colors.red,
+                          duration: Toast.LENGTH_LONG,
+                          gravity: 30);
+                    }
+                    Navigator.pop(context);
+                  } else
+                    Toast.show(":D قم بتعبئة الحقل", context,
+                        backgroundColor: Colors.red,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: 30);
+                },
               ),
             ],
           );
-        }
-        );
-      
-    }
+        });
+  }
 }
 
 class CheckInOUT extends StatefulWidget {
@@ -287,45 +304,88 @@ class CheckInOUT extends StatefulWidget {
 }
 
 class _CheckInOUTState extends State<CheckInOUT> {
-  bool checkedIn = false;
+  bool _checked = false;
+  String now = DateTime.now().toString().substring(0, 10);
+
+  @override
+  void initState() {
+    super.initState();
+    _loadState();
+  }
+
+  //Loading counter value on start
+  void _loadState() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      print("fjlskdjfldks");
+      print(_checked);
+      String s = (usedUser.id.toString() + now).toString();
+      _checked = (prefs.getBool(s) ?? false);
+    });
+  }
+
+  //Incrementing counter after click
+  void _incrementCounter() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _checked = !_checked;
+      print(_checked);
+      print("kdslhflks");
+      print(usedUser.id.runtimeType);
+      String s = (usedUser.id.toString() + now).toString();
+      print(s);
+      prefs.setBool(s, _checked);
+    });
+  }
 
   Widget getCheckColumn() {
-    if (checkedIn)
+    if (_checked)
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Icon(Icons.logout, size: 50, color: Colors.red[800]),
           Text("تسجيل خروج ",
-              style: TextStyle(fontSize: 20, color: Colors.red[800], fontWeight: FontWeight.bold)),
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.red[800],
+                  fontWeight: FontWeight.bold)),
         ],
       );
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Icon(Icons.login, size: 50, color: Colors.blue[800]),
-        Text("تسجيل دخول", style: TextStyle(fontSize: 20, color: Colors.blue[800] , fontWeight: FontWeight.bold),),
+        Text(
+          "تسجيل دخول",
+          style: TextStyle(
+              fontSize: 20,
+              color: Colors.blue[800],
+              fontWeight: FontWeight.bold),
+        ),
       ],
     );
   }
-  Future<void> checkInOutFunctionality() async {
-      final response = await http.post(
-        Uri.parse('http://portal.hepco.ps:7654/api/trainee-attendances'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, int>{
-          'trainer_id': usedUser.id,
-        }),
-      );
-      if (response.statusCode == 200 ) { 
-        var data = jsonDecode(response.body);
 
-        setState(() {
-          startTime = data['data']['check_in'];
-          checkedIn = !checkedIn;
-        });
-      } 
+  Future<void> checkInOutFunctionality() async {
+    final response = await http.post(
+      Uri.parse('http://portal.hepco.ps:7654/api/trainee-attendances'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, int>{
+        'trainer_id': usedUser.id,
+      }),
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+
+      setState(() {
+        startTime = data['data']['check_in'];
+        //checkedIn = !checkedIn;
+      });
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -340,6 +400,7 @@ class _CheckInOUTState extends State<CheckInOUT> {
               child: getCheckColumn(),
               onPressed: () {
                 checkInOutFunctionality();
+                _incrementCounter();
               },
             ),
           ],
