@@ -1,1 +1,2 @@
 var usedUser ;
+var startTime = "";

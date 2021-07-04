@@ -10,9 +10,33 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-var startTime = "";
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+
+  void updateStartTime(){
+    setState(() {
+      print ("mememememmememe");
+      });
+  }
+
+  void _loadStartTime() async {
+    final prefs = await SharedPreferences.getInstance();
+    startTime = prefs.getString(usedUser.id.toString()+'S')?? "";
+    print("startsd ");
+    print(startTime);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadStartTime();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -172,7 +196,9 @@ class MainPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  CheckInOUT(),
+                  CheckInOUT(setTime: (){
+                    updateStartTime();
+                  }),
                 ],
               ),
             )),
@@ -299,13 +325,24 @@ class _TaskDialogState extends State<TaskDialog> {
 }
 
 class CheckInOUT extends StatefulWidget {
+  final VoidCallback setTime;
+
+  CheckInOUT({this.setTime});
+
   @override
-  _CheckInOUTState createState() => _CheckInOUTState();
+  _CheckInOUTState createState() => _CheckInOUTState(setTime);
+
 }
 
 class _CheckInOUTState extends State<CheckInOUT> {
+  
+  final VoidCallback setTime;
+
+  _CheckInOUTState(this.setTime);
+
   bool _checked = false;
   String now = DateTime.now().toString().substring(0, 10);
+  String savedStartTime;
 
   @override
   void initState() {
@@ -313,30 +350,20 @@ class _CheckInOUTState extends State<CheckInOUT> {
     _loadState();
   }
 
-  //Loading counter value on start
   void _loadState() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      print("fjlskdjfldks");
-      print(_checked);
-      String s = (usedUser.id.toString() + now).toString();
-      _checked = (prefs.getBool(s) ?? false);
-    });
+    String s = (usedUser.id.toString() + now).toString();
+    _checked = (prefs.getBool(s) ?? false);
+    savedStartTime = prefs.getString("date")?? now;
+    if(prefs.getString("date") !=now)
+    {
+      print("!=");
+      prefs.clear();
+      prefs.setString('date',now);
+    }
+
   }
 
-  //Incrementing counter after click
-  void _incrementCounter() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _checked = !_checked;
-      print(_checked);
-      print("kdslhflks");
-      print(usedUser.id.runtimeType);
-      String s = (usedUser.id.toString() + now).toString();
-      print(s);
-      prefs.setBool(s, _checked);
-    });
-  }
 
   Widget getCheckColumn() {
     if (_checked)
@@ -378,11 +405,19 @@ class _CheckInOUTState extends State<CheckInOUT> {
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-
-      setState(() {
         startTime = data['data']['check_in'];
-        //checkedIn = !checkedIn;
-      });
+        print(startTime);
+        final prefs = await SharedPreferences.getInstance();
+        setState(() {
+          _checked = !_checked;
+          print(_checked);
+          print("kdslhflks");
+          print(usedUser.id.runtimeType);
+          String s = (usedUser.id.toString() + now).toString();
+          print(s);
+          prefs.setString(usedUser.id.toString()+'S', startTime);
+          prefs.setBool(s, _checked);
+        });
     }
   }
 
@@ -398,9 +433,11 @@ class _CheckInOUTState extends State<CheckInOUT> {
           children: [
             FlatButton(
               child: getCheckColumn(),
-              onPressed: () {
-                checkInOutFunctionality();
-                _incrementCounter();
+              onPressed: () async {
+                await checkInOutFunctionality();
+                print("111111111111");
+                print("2222222222222");
+                await setTime();
               },
             ),
           ],

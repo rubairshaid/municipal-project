@@ -101,6 +101,7 @@ class SideDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               onTap: () {
+                startTime="";
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
