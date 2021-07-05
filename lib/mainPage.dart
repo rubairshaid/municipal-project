@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -37,6 +35,7 @@ class _MainPageState extends State<MainPage> {
     }
     else print("-===================");
     startTime = prefs.getString(usedUser.id.toString()+'S')?? "- - : - -";
+    finishTime = (prefs.getString(usedUser.id.toString()+"F") ?? "- - : - -");
     print("startsd ");
     print(startTime);
 
@@ -163,16 +162,24 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                   child: Column(
                                     children: [
-                                      Column(children: [
-                                        Text("ساعة البدء   ",
+                                      Row(children: [
+                                        Text("ساعة البدء: ",
                                             style: TextStyle(fontSize: 20)),
                                         Text(startTime,
                                             style: TextStyle(fontSize: 17)),
                                       ]),
-                                      Column(children: [
-                                        Text("\nالوقت المقطوع لليوم  ",
+                                      SizedBox(height:5),
+                                      Row(children: [
+                                        Text("وقت الخروج: ",
                                             style: TextStyle(fontSize: 20)),
-                                        Text("4",
+                                        Text(finishTime,
+                                            style: TextStyle(fontSize: 17)),
+                                      ]),
+                                      SizedBox(height:5),
+                                      Row(children: [
+                                        Text("المدة: ",
+                                            style: TextStyle(fontSize: 20)),
+                                        Text(duration,
                                             style: TextStyle(fontSize: 17)),
                                       ]),
                                     ],
@@ -368,6 +375,12 @@ class _CheckInOUTState extends State<CheckInOUT> {
     final prefs = await SharedPreferences.getInstance();
     String s = (usedUser.id.toString() + now).toString();
     _checked = (prefs.getBool(s) ?? false);
+    print(_checked);
+    print("hhhhhhhhhhhhhhhhhhhhhh");
+    print(prefs.getBool(s));
+    setState(() {
+      
+    });
     
   }
 
@@ -418,7 +431,38 @@ class _CheckInOUTState extends State<CheckInOUT> {
           _checked = !_checked;
           print(_checked);
           print("kdslhflks");
-          print(usedUser.id.runtimeType);
+          if(_checked==false)
+          {
+            if(data['data']['check_out']!=null)
+            {
+              print ("kkkkkkkkkkkkkkkkkkk");
+              prefs.setString(usedUser.id.toString()+'F', data['data']['check_out']);
+              finishTime=data['data']['check_out'];
+              var hours = startTime.substring(0,2);
+              String min = startTime.substring(3,5);
+              var hours3 = int.parse(finishTime.substring(0,2));
+              var min3 = int.parse(finishTime.substring(3,5));
+              print("llllllllllll");
+              print(hours.runtimeType);
+              print(min.runtimeType);
+              print(hours);
+              print(min);
+              var hours2=int.parse(hours);
+              var min2=int.parse(min);
+              final startTimeDuration = DateTime(2021, 07, 5,hours2 , min2);
+              final currentTimeDuration = DateTime(2021, 07, 5,hours3 , min3);
+              final diff_hr = currentTimeDuration.difference(startTimeDuration).inHours;
+              final dh = (diff_hr<0 ? diff_hr+11: diff_hr).toString();
+              final diff_mn = (currentTimeDuration.difference(startTimeDuration).inMinutes%60).toString();
+              print(diff_hr.runtimeType);
+              print(diff_mn);
+              print(diff_hr);
+              //print(startTimeDuration);
+              print(currentTimeDuration);
+              print("djfhsdncgfnsdhfjd");
+              duration = dh+":"+diff_mn;
+            }
+          }
           String s = (usedUser.id.toString() + now).toString();
           print(s);
           prefs.setString(usedUser.id.toString()+'S', data['data']['check_in']);
