@@ -452,7 +452,7 @@ class _CheckInOUTState extends State<CheckInOUT> {
               final startTimeDuration = DateTime(2021, 07, 5,hours2 , min2);
               final currentTimeDuration = DateTime(2021, 07, 5,hours3 , min3);
               final diff_hr = currentTimeDuration.difference(startTimeDuration).inHours;
-              final dh = (diff_hr<0 ? diff_hr+11: diff_hr).toString();
+              final dh = (diff_hr<0 ? startTimeDuration.minute==currentTimeDuration.minute ? diff_hr+12: diff_hr+11:diff_hr).toString();
               final diff_mn = (currentTimeDuration.difference(startTimeDuration).inMinutes%60).toString();
               print(diff_hr.runtimeType);
               print(diff_mn);
