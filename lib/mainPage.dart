@@ -36,6 +36,7 @@ class _MainPageState extends State<MainPage> {
     else print("-===================");
     startTime = prefs.getString(usedUser.id.toString()+'S')?? "- - : - -";
     finishTime = (prefs.getString(usedUser.id.toString()+"F") ?? "- - : - -");
+    duration = prefs.getString(usedUser.id.toString()+'D')?? "- - : - -";
     print("startsd ");
     print(startTime);
 
@@ -461,6 +462,7 @@ class _CheckInOUTState extends State<CheckInOUT> {
               print(currentTimeDuration);
               print("djfhsdncgfnsdhfjd");
               duration = dh+":"+diff_mn;
+              prefs.setString(usedUser.id.toString()+'D', duration);
             }
           }
           String s = (usedUser.id.toString() + now).toString();
