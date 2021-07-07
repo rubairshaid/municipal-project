@@ -137,9 +137,9 @@ class _MainPageState extends State<MainPage> {
                                           text: "الكلية",
                                           hours: usedUser.traning_hours),
                                       TrainingHours(
-                                          text: "المقطوعة", hours: '10'),
+                                          text: "المقطوعة", hours: usedUser.total_used),
                                       TrainingHours(
-                                          text: "المتبقية", hours: '140'),
+                                          text: "المتبقية", hours: usedUser.total_remining_hours),
                                     ],
                                   ))
                             ],

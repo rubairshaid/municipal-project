@@ -13,10 +13,12 @@ class User_account{
   String trainer_no;
   String emial;
   String password;
+  String total_used;
+  String total_remining_hours;
 
   User_account({this.id, this.name, this.univirsity, this.major, this.gender, this.birthday,
     this.image, this.traning_hours, this.date_of_traning, this.created_at, this.updated_at,
-    this.trainer_no ,this.emial, this.password});
+    this.trainer_no ,this.emial, this.password , this.total_used ,this.total_remining_hours });
 
   factory User_account.fromJson(dynamic json) {
     return User_account(
@@ -34,6 +36,8 @@ class User_account{
       trainer_no: json["trainer_no"],
       emial: json['emial'],
       password: json['password'],
+      total_used: json['total_used'],
+      total_remining_hours: json['total_remining_hours']
 
     );
 

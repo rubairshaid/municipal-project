@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/jobDays.dart';
 import 'package:flutter_application_1/loginPage.dart';
 import 'package:flutter_application_1/taskPage.dart';
 import 'mainPage.dart';
@@ -89,6 +90,31 @@ class SideDrawer extends StatelessWidget {
                   },
                 ),
                 Divider(thickness: 2),
+                ListTile(
+                  trailing: Icon(
+                    Icons.calendar_today,
+                    color: Colors.blue[500],
+                    size: 30,
+                  ),
+                  leading: Text(
+                    "الدوام",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () async {
+                    http.Response httpRes = await http.get ('http://portal.hepco.ps:7654/api/trainee-attendances?trainer_id=${usedUser.id}');
+                    print('http://portal.hepco.ps:7654/api/trainee-attendances?trainer_id=${usedUser.id}');
+                    if (httpRes.statusCode == 200)
+                    {
+                      print("fkhsdjkfsd");
+                      var jsonStr = jsonDecode(httpRes.body) as List;
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => JobDays(jsonStr),
+                        ));
+                    } 
+                  },
+                ),
               ],
             ),
           ),
