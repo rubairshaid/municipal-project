@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/sideDrawer.dart';
-
+import 'userObj.dart';
 class JobDays extends StatelessWidget {
   List <dynamic> attendence;
 
@@ -17,29 +17,56 @@ class JobDays extends StatelessWidget {
         drawer: SideDrawer(),
         body:Column(
           children: [
-            Table(
-              children: [
-                TableRow(
-                  children: [
-                    Center(child: Text("اليوم")),
-                    Center(child: Text("التاريخ")),
-                    Center(child: Text("وقت البدء")),
-                    Center(child: Text("وقت الانتهاء")),
-                    Center(child: Text("المدة")),
-                  ],
-                ),
-              for(var item in attendence )
-                TableRow( 
-                  children: [
-                  Center(child: Text("الاحد")),
-                  Center(child: Text(item['date'])),
-                  Center(child: Text(item['check_in']==null? "-":item['check_in'])),
-                  Center(child: Text(item['check_out']==null? "-":item['check_out'])),
-                  Center(child: Text(item['diff']==null? "-":item['diff'])),
-                  
-                  ]
-                )
-              ]
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(
+                headingRowColor:
+                  MaterialStateColor.resolveWith((states) => Colors.grey[200]),
+                columns: [
+                   DataColumn(
+                    label: Text(
+                      "اليوم",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      "التاريخ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      "وقت البدء",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      "وقت الانتهاء",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      "المدة",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+                rows: [
+                  for(var item in attendence )
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(Text(dayName(item['date']))),
+                        DataCell(Text(item['date'])),
+                        DataCell(Text(item['check_in']==null? "-":item['check_in'])),
+                        DataCell(Text(item['check_out']==null? "-":item['check_out'])),
+                        DataCell(Text(item['diff']==null? "-":item['diff'])),
+                      ],
+                    ),
+                ],
+              ),
             ),
           ],
         )
