@@ -70,6 +70,7 @@ class _LogInFormState extends State<LogInForm> {
                   ),
                 ),
               ),
+              Text("متدربين كهرباء الخليل", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               Form(
                 child : Container(
                   padding: EdgeInsets.fromLTRB(40, 50, 40, 50),
@@ -121,7 +122,7 @@ class _LogInFormState extends State<LogInForm> {
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(30, 0, 20, 0),
-                child: AutoSizeText("إذا واجهتك مشاكل في تسجيل الدخول قم بمراجعة الأستاذ فادي الجعبري رئيس قسم الموارد البشرية في الطابق الرابع",
+                child: AutoSizeText("إذا واجهتك مشاكل في تسجيل الدخول قم بمراجعة رئيس قسم الموارد البشرية في الطابق الرابع",
                 style :TextStyle(fontSize:15,color: Colors.grey[800]),maxLines: 3,),
               ),
             ]
