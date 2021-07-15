@@ -97,7 +97,7 @@ class _MainPageState extends State<MainPage> {
                                     child: CircleAvatar(
                                       radius: 30,
                                       backgroundColor:
-                                          Colors.purple[100].withOpacity(0.8),
+                                          Colors.yellow[700],
                                       child: Icon(Icons.person,
                                           color: Colors.white, size: 47),
                                     ),
@@ -252,7 +252,7 @@ class _TaskDialogState extends State<TaskDialog> {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
-        backgroundColor: Colors.yellow[700],
+        backgroundColor: Colors.orange[300],
         foregroundColor: Colors.black,
         icon: Icon(Icons.add, size: 27),
         label: Text("إضافة المهمة اليومية",

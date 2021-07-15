@@ -25,14 +25,16 @@ class PersonalPage extends StatelessWidget {
                         children: [
                           ListItems(text1:"الاسم" , text2:usedUser.name , iconPara:"name"),
                           ListItems(text1:"الايميل" , text2: usedUser.emial , iconPara:"email"),
-                          ListItems(text1:"رقم الجوال" , text2:"000555" , iconPara:"phone"),
+                          ListItems(text1:"رقم الجوال" , text2:usedUser.phone , iconPara:"phone"),
                           ListItems(text1:"الجامعة" , text2:usedUser.univirsity , iconPara:"univ"),
                           ListItems(text1:"التخصص" , text2:usedUser.major , iconPara:"major"),
-                          ListItems(text1:"السنة" , text2:usedUser.date_of_traning , iconPara:"year"),
-                          ListItems(text1:"رقم الهوية" , text2:"00000" , iconPara:"id"),
-                          ListItems(text1:"نوع التدريب" , text2:"برمجة" , iconPara:"subject"),
-                          ListItems(text1:"المشرف" , text2:"صلاح ادكيدك" , iconPara:"supervisor"),
+                          ListItems(text1:"سنة التدريب" , text2:usedUser.date_of_traning , iconPara:"year"),
+                          ListItems(text1:"رقم الهوية" , text2:usedUser.identity , iconPara:"id"),
+                          ListItems(text1:"نوع التدريب" , text2:usedUser.type_of_training , iconPara:"subject"),
+                          ListItems(text1:"المشرف" , text2:usedUser.supervisor, iconPara:"supervisor"),
                           ListItems(text1:"عدد ساعات التدريب" , text2:usedUser.traning_hours , iconPara:"time"),
+                          ListItems(text1:"الحالة الاجتماعية" , text2:usedUser.relationship_status , iconPara:"supervisor"),
+                          ListItems(text1:"العمر" , text2:usedUser.age , iconPara:"supervisor"),
 
                         ],
                       ),
@@ -83,9 +85,9 @@ class ListItems extends StatelessWidget{
 
             children: [
               CircleAvatar(
-                radius: 20,
-                backgroundColor: Colors.purple.withOpacity(0.8),
-                child: Icon(myIcons2[this.iconPara], color: Colors.white),
+                radius: 25,
+                backgroundColor: Colors.yellow[700],
+                child: Icon(myIcons2[this.iconPara], color: Colors.white, size: 30),
               ),
 
               Container(
@@ -94,7 +96,7 @@ class ListItems extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(this.text1 , style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                    Text(this.text2 ,style: TextStyle(color: Colors.grey,fontSize: 20),),
+                    Text(this.text2==null? "-": this.text2 ,style: TextStyle(color: Colors.grey,fontSize: 20),),
                   ],
                 ),
               ),

@@ -65,7 +65,7 @@ class User_account {
       password: json['password'],
       total_used: json['total_used'],
       total_remining_hours: json['total_remining_hours'],
-      phone: json['phone'] == null ? '-' : json['phone'],
+      phone: json['phone'],
       identity: json['identity'],
       type_of_training: json['type_of_training'],
       supervisor: json['supervisor'],
