@@ -24,6 +24,7 @@ class PersonalPage extends StatelessWidget {
                       child:ListView(
                         children: [
                           ListItems(text1:"الاسم" , text2:usedUser.name , iconPara:"name"),
+                          ListItems(text1:"العمر" , text2:usedUser.age , iconPara:"cake"),
                           ListItems(text1:"الايميل" , text2: usedUser.emial , iconPara:"email"),
                           ListItems(text1:"رقم الجوال" , text2:usedUser.phone , iconPara:"phone"),
                           ListItems(text1:"الجامعة" , text2:usedUser.univirsity , iconPara:"univ"),
@@ -31,11 +32,10 @@ class PersonalPage extends StatelessWidget {
                           ListItems(text1:"سنة التدريب" , text2:usedUser.date_of_traning , iconPara:"year"),
                           ListItems(text1:"رقم الهوية" , text2:usedUser.identity , iconPara:"id"),
                           ListItems(text1:"نوع التدريب" , text2:usedUser.type_of_training , iconPara:"subject"),
-                          ListItems(text1:"المشرف" , text2:usedUser.supervisor, iconPara:"supervisor"),
+                          ListItems(text1:"المشرف" , text2:usedUser.supervisor, iconPara:"name"),
                           ListItems(text1:"عدد ساعات التدريب" , text2:usedUser.traning_hours , iconPara:"time"),
                           ListItems(text1:"الحالة الاجتماعية" , text2:usedUser.relationship_status , iconPara:"supervisor"),
-                          ListItems(text1:"العمر" , text2:usedUser.age , iconPara:"supervisor"),
-
+                          
                         ],
                       ),
 
@@ -66,6 +66,7 @@ class ListItems extends StatelessWidget{
     'subject': Icons.subject,
     'supervisor': Icons.supervisor_account,
     'time': Icons.access_time,
+    'cake':Icons.cake,
 
 
   };
