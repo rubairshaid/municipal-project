@@ -15,60 +15,59 @@ class JobDays extends StatelessWidget {
           title: Text("الدوام"),
         ),
         drawer: SideDrawer(),
-        body:Column(
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: DataTable(
-                headingRowColor:
-                  MaterialStateColor.resolveWith((states) => Colors.grey[200]),
-                columns: [
-                   DataColumn(
-                    label: Text(
-                      "اليوم",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+        body:SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: DataTable(
+              headingRowColor:
+                MaterialStateColor.resolveWith((states) => Colors.grey[200]),
+              columns: [
+                 DataColumn(
+                  label: Text(
+                    "اليوم",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  DataColumn(
-                    label: Text(
-                      "التاريخ",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                ),
+                DataColumn(
+                  label: Text(
+                    "التاريخ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  DataColumn(
-                    label: Text(
-                      "وقت البدء",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                ),
+                DataColumn(
+                  label: Text(
+                    "وقت البدء",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  DataColumn(
-                    label: Text(
-                      "وقت الانتهاء",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                ),
+                DataColumn(
+                  label: Text(
+                    "وقت الانتهاء",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  DataColumn(
-                    label: Text(
-                      "المدة",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                ),
+                DataColumn(
+                  label: Text(
+                    "المدة",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                ],
-                rows: [
-                  for(var item in attendence )
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(Text(dayName(item['date']))),
-                        DataCell(Text(item['date'])),
-                        DataCell(Text(item['check_in']==null? "-":item['check_in'])),
-                        DataCell(Text(item['check_out']==null? "-":item['check_out'])),
-                        DataCell(Text(item['diff']==null? "-":item['diff'])),
-                      ],
-                    ),
-                ],
-              ),
+                ),
+              ],
+              rows: [
+                for(var item in attendence )
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(Text(dayName(item['date']))),
+                      DataCell(Text(item['date'])),
+                      DataCell(Text(item['check_in']==null? "-":item['check_in'])),
+                      DataCell(Text(item['check_out']==null? "-":item['check_out'])),
+                      DataCell(Text(item['diff']==null? "-":item['diff'])),
+                    ],
+                  ),
+              ],
             ),
-          ],
+          ),
         )
       ),
     );
