@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_application_1/sideDrawer.dart';
-import 'package:http/http.dart' as http;
 class TasksPage extends StatelessWidget {
-  List <dynamic> tasks;
+  final List <dynamic> tasks;
 
   TasksPage(this.tasks);
   @override
@@ -25,7 +24,6 @@ class TasksPage extends StatelessWidget {
                       ),
                       margin: EdgeInsets.fromLTRB(15 , 10 , 15 , 5),
                       padding : EdgeInsets.all(12),
-
                       width: double.infinity,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,7 +36,6 @@ class TasksPage extends StatelessWidget {
                             children: [
                               Text('\n'),
                               Text(tasks[index]['created_at'].substring(0,10), style: TextStyle(fontWeight: FontWeight.bold,)),
-
                             ],
                           ),
                         ],

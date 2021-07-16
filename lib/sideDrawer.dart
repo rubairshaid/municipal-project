@@ -84,9 +84,7 @@ class SideDrawer extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => TasksPage(jsonStr),
                         ));
-                    }
-    
-                    
+                    } 
                   },
                 ),
                 Divider(thickness: 2),
@@ -105,7 +103,6 @@ class SideDrawer extends StatelessWidget {
                     print('http://portal.hepco.ps:7654/api/trainee-attendances?trainer_id=${usedUser.id}');
                     if (httpRes.statusCode == 200)
                     {
-                      print("fkhsdjkfsd");
                       var jsonStr = jsonDecode(httpRes.body) as List;
                       Navigator.pushReplacement(
                         context,

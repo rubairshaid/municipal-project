@@ -34,21 +34,15 @@ class PersonalPage extends StatelessWidget {
                           ListItems(text1:"نوع التدريب" , text2:usedUser.type_of_training , iconPara:"subject"),
                           ListItems(text1:"المشرف" , text2:usedUser.supervisor, iconPara:"hail"),
                           ListItems(text1:"عدد ساعات التدريب" , text2:usedUser.traning_hours , iconPara:"time"),
-                          ListItems(text1:"الحالة الاجتماعية" , text2:usedUser.relationship_status , iconPara:"supervisor"),
-                          
+                          ListItems(text1:"الحالة الاجتماعية" , text2:usedUser.relationship_status , iconPara:"supervisor"),                         
                         ],
                       ),
-
-
                     )
                 )
               ]
           ),
-
         ),
       );
-
-
   }
 }
 class ListItems extends StatelessWidget{
@@ -68,8 +62,6 @@ class ListItems extends StatelessWidget{
     'time': Icons.access_time,
     'cake':Icons.cake,
     'hail': Icons.hail
-
-
   };
 
   ListItems({this.text1 , this.text2 , this.iconPara});
@@ -82,14 +74,12 @@ class ListItems extends StatelessWidget{
           padding: EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-
             children: [
               CircleAvatar(
                 radius: 27,
                 backgroundColor: Colors.yellow[800],
                 child: Icon(myIcons2[this.iconPara], color: Colors.white, size: 33),
               ),
-
               Container(
                 padding: EdgeInsets.fromLTRB(15,0,30,0),
                 child: Column(
@@ -100,8 +90,6 @@ class ListItems extends StatelessWidget{
                   ],
                 ),
               ),
-
-
             ],
           ),
         ),

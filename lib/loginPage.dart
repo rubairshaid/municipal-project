@@ -19,7 +19,7 @@ class _LogInFormState extends State<LogInForm> {
 
   var user;
   
-  Future<User_account> fetchUser() async {
+  void fetchUser() async {
     final response = await http.post(
       Uri.parse('http://portal.hepco.ps:7654/api/trainers'),
       headers: <String, String>{

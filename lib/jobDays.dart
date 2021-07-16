@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/sideDrawer.dart';
 import 'userObj.dart';
 class JobDays extends StatelessWidget {
-  List <dynamic> attendence;
+  final List <dynamic> attendence;
 
   JobDays(this.attendence);
   @override
